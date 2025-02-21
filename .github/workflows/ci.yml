@@ -20,6 +20,8 @@ jobs:
           path: |
             ~/.cargo
             ${{ github.workspace }}
+            /usr/games/cowsay
+            /usr/share/cowsay
           key: cache-${{ github.run_id }}-${{ github.run_attempt }}
 
   audit:
@@ -43,5 +45,7 @@ jobs:
           path: |
             ~/.cargo
             ${{ github.workspace }}
+            /usr/games/cowsay
+            /usr/share/cowsay
           key: cache-${{ github.run_id }}-${{ github.run_attempt }}
       - run: cargo run
