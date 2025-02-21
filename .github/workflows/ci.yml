@@ -1,7 +1,7 @@
 name: CI
 on: [push]
 jobs:
-  install:
+  setup:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -13,6 +13,7 @@ jobs:
       - run: mkdir -p ~/bin
       - run: cp /usr/games/cowsay ~/bin/cowsay
       - run: cargo install cargo-audit
+      - run: cargo build
       - run: which cargo
       - run: pwd
       - run: ls -lA
@@ -54,3 +55,13 @@ jobs:
       - run: echo $PATH
       - run: echo $GITHUB_PATH
       - run: cargo run
+
+  teardown:
+    runs-on: ubuntu-latest
+    needs:
+      - audit
+      - run
+    steps:
+      - run: gh cache --help
+      - run: gh cache list
+      - run: gh cache delete --key cache-${{ github.run_id }}-${{ github.run_attempt }}
