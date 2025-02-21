@@ -1,7 +1,5 @@
 name: CI
 on: [push]
-env:
-  PATH: "$HOME/bin:$PATH"
 jobs:
   install:
     runs-on: ubuntu-latest
@@ -44,6 +42,8 @@ jobs:
   run:
     runs-on: ubuntu-latest
     needs: install
+    env:
+      PATH: "~/bin:$PATH"
     steps:
       - uses: actions/cache/restore@v4
         with:
