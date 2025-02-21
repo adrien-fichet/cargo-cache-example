@@ -1,5 +1,7 @@
 name: CI
 on: [push]
+env:
+  PATH: "$HOME/bin:$PATH"
 jobs:
   install:
     runs-on: ubuntu-latest
@@ -35,6 +37,7 @@ jobs:
           path: |
             ~/.cargo
             ${{ github.workspace }}
+            ~/bin
           key: cache-${{ github.run_id }}-${{ github.run_attempt }}
       - run: cargo audit
 
@@ -49,5 +52,5 @@ jobs:
             ${{ github.workspace }}
             ~/bin
           key: cache-${{ github.run_id }}-${{ github.run_attempt }}
-      - run: echo "~/bin" >> $GITHUB_PATH
+      - run: echo $PATH
       - run: cargo run
