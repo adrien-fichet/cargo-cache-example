@@ -10,18 +10,20 @@ jobs:
           components: rustfmt, clippy
       - run: sudo apt install -y cowsay
       - run: dpkg -L cowsay
+      - run: mkdir -p ~/bin
+      - run: cp /usr/games/cowsay ~/bin/cowsay
       - run: cargo install cargo-audit
       - run: which cargo
       - run: pwd
       - run: ls -lA
       - run: ls -lA ~/
+      - run: ls -lA ~/bin
       - uses: actions/cache/save@v4
         with:
           path: |
             ~/.cargo
             ${{ github.workspace }}
-            /usr/games/cowsay
-            /usr/share/cowsay
+            ~/bin
           key: cache-${{ github.run_id }}-${{ github.run_attempt }}
 
   audit:
@@ -45,7 +47,7 @@ jobs:
           path: |
             ~/.cargo
             ${{ github.workspace }}
-            /usr/games/cowsay
-            /usr/share/cowsay
+            ~/bin
           key: cache-${{ github.run_id }}-${{ github.run_attempt }}
+      - run: echo "~/bin" >> $GITHUB_PATH
       - run: cargo run
