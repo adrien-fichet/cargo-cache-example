@@ -64,6 +64,7 @@ jobs:
     env:
       GH_TOKEN: ${{ github.token }}
     steps:
+      - uses: actions/checkout@v4
       - run: gh cache --help
       - run: gh cache list
       - run: gh cache delete --key cache-${{ github.run_id }}-${{ github.run_attempt }}
