@@ -63,6 +63,8 @@ jobs:
       - run
     env:
       GH_TOKEN: ${{ github.token }}
+    permissions:
+      actions: write
     steps:
       - uses: actions/checkout@v4
       - run: gh cache --help
